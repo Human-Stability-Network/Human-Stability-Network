@@ -54,3 +54,4 @@ Governance changes require:
 2. 30-day public comment period
 3. 2/3 Board approval
 4. 2/3 Community Council approval
+
