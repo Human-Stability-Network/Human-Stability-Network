@@ -16,3 +16,54 @@ _site/
 # counterproductive to check this file into the repository.
 # Details at https://github.com/github/pages-gem/issues/768
 Gemfile.lock
+
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+
+# Sensitive data
+*.key
+*.pem
+*.cert
+secrets/
+credentials/
+
+# Build artifacts
+dist/
+build/
+node_modules/
+
+# Documentation build
+docs/_build/
+site/
+
+# User data (never commit)
+user_data/
+participant_data/
+trust_fund_records/
+
+# Backups
+*.bak
+*.backup
