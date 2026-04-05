@@ -1,0 +1,76 @@
+# HSN CI/CD Pipeline
+# This is a placeholder for the AI Value Engine and documentation pipelines
+
+stages:
+  - validate
+  - test
+  - build
+  - deploy-docs
+  - security-scan
+
+variables:
+  DOCKER_IMAGE: hsn/value-engine:latest
+
+# Validate documentation formatting
+validate-docs:
+  stage: validate
+  script:
+    - echo "Validating Markdown files..."
+    - find docs/ -name "*.md" -exec markdownlint {} \;
+  only:
+    - merge_requests
+    - main
+
+# Validate Mermaid diagrams
+validate-diagrams:
+  stage: validate
+  script:
+    - echo "Validating Mermaid diagrams..."
+    - for file in docs/diagrams/*.md; do
+        grep -q "\`\`\`mermaid" $file || exit 1;
+      done
+  only:
+    - merge_requests
+
+# AI Value Engine unit tests
+unit-tests:
+  stage: test
+  script:
+    - echo "Running unit tests for AI Value Engine..."
+    # - pytest tests/
+  only:
+    - main
+    - develop
+
+# Build documentation site
+build-docs:
+  stage: build
+  script:
+    - echo "Building documentation site..."
+    - mkdocs build --site-dir public
+  artifacts:
+    paths:
+      - public/
+  only:
+    - main
+
+# Deploy to GitLab Pages
+pages:
+  stage: deploy-docs
+  script:
+    - mkdocs build --site-dir public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+
+# Security scan for sensitive data
+secrets-scan:
+  stage: security-scan
+  script:
+    - echo "Scanning for secrets..."
+    - trufflehog --regex --entropy=False ./
+  allow_failure: true
+  only:
+    - merge_requests
