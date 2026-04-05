@@ -1,0 +1,48 @@
+# HSN Security Policies
+
+## Reporting a Vulnerability
+
+**Do not report security vulnerabilities through public issues.**
+
+Please report security vulnerabilities to: **security@hsn.org**
+
+You should receive a response within 48 hours. If the issue is confirmed, we will:
+
+1. Acknowledge receipt within 24 hours
+2. Assign a severity level (Critical, High, Medium, Low)
+3. Begin work on a fix
+4. Notify affected participants if necessary
+5. Publish a security advisory after fix is deployed
+
+## Data Protection Standards
+
+HSN adheres to:
+
+- **Data minimization** - Only collect what is necessary
+- **Purpose limitation** - Use data only for stated purposes
+- **Storage limitation** - Delete data when no longer needed
+- **Integrity & confidentiality** - Protect against unauthorized access
+
+## Participant Data
+
+- All participant data is encrypted at rest and in transit
+- Access requires multi-factor authentication
+- Audit logs track all data access
+- No data sold or shared without explicit consent
+
+## AI Safety Guardrails
+
+The AI Support Layer implements:
+
+- Output filtering for harmful content
+- Rate limiting to prevent abuse
+- Content moderation for children's interactions
+- No storage of sensitive conversations by default
+
+## Security Updates
+
+Subscribe to security advisories: security-updates@hsn.org
+
+## Responsible Disclosure
+
+We support responsible disclosure and will not pursue legal action for good-faith reports.
