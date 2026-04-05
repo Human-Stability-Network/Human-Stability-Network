@@ -1,0 +1,423 @@
+Human Stability Network – Repository Scaffolding & Core Architecture
+
+Part 1: Starting-Phase Scaffolding for the Human Stability Network Repository
+
+Folder Structure
+
+```
+human-stability-network/
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml
+│   │   └── deploy.yml
+│   ├── app-integration/
+│   │   └── github-app-placeholder.md
+│   └── CODEOWNERS
+├── docs/
+│   ├── mission-philosophy.md
+│   ├── architecture-overview.md
+│   └── glossary.md
+├── contracts/
+│   ├── smart-contracts/          # Solidity / CosmWasm stubs
+│   └── zk-circuits/              # Circom / ZoKrates stubs
+├── programs/
+│   ├── program-index.md
+│   ├── basic-income/
+│   ├── mental-health/
+│   ├── skills-training/
+│   └── emergency-relief/
+├── governance/
+│   ├── governance-index.md
+│   ├── dao/
+│   └── proposals/
+├── ai-support-layer/
+│   ├── ai-support-layer-index.md
+│   ├── agents/
+│   └── models/
+├── value-engine/
+│   ├── value-engine-index.md
+│   ├── reputation/
+│   └── incentives/
+├── youth-track/
+│   ├── youth-track-index.md
+│   ├── mentorship/
+│   └── education/
+├── trust-fund/
+│   ├── trust-fund-index.md
+│   ├── escrow/
+│   └── disbursement/
+├── security/
+│   ├── security.md
+│   ├── threat-model.md
+│   └── audits/
+├── contributing/
+│   ├── contribution-template.md
+│   ├── code-of-conduct.md
+│   └── pull-request-template.md
+├── .gitignore
+├── LICENSE
+└── README.md
+```
+
+Starter Files
+
+README.md (Outline)
+
+
+# Human Stability Network
+
+> Decentralized infrastructure for universal human stability — income, care, and belonging.
+
+## Mission
+To guarantee every person the material and social conditions for a stable life, using zero‑knowledge proofs, distributed governance, and AI‑augmented casework.
+
+## Philosophy
+- **Stability as a public good** – not charity, not conditional aid.
+- **Privacy by default** – eligibility proven without revealing personal data.
+- **Local + global** – programs adapt to cultures, funded by a shared trust fund.
+- **Open contribution** – anyone can build a program, propose a rule, or run a node.
+
+## Quick start
+```bash
+git clone https://github.com/hsn/core.git
+cd human-stability-network
+make setup
+```
+
+Repository structure
+
+Folder Purpose
+/programs Pluggable intervention modules (UBI, mental health, etc.)
+/governance DAO specs, proposal templates, voting logic
+/ai-support-layer LLM agents for case triage & decision support
+/value-engine Reputation, incentives, and stablecoin mechanics
+/youth-track Age‑specific stability pathways (16–25)
+/trust-fund Capital pools, escrow, conditional disbursement
+/contracts Smart contracts & ZK circuits
+/security Audits, threat models, key management
+
+Contributing
+
+See CONTRIBUTING.md and CODE_OF_CONDUCT.md.
+
+License
+
+AGPL‑3.0 + Commons Clause (ethical use only)
+
+```
+
+#### `LICENSE`
+AGPL‑3.0 (full text truncated for brevity, but include standard header).
+
+#### `.gitignore`
+```
+
+node_modules/
+.env
+*.log
+dist/
+build/
+coverage/
+*.pem
+*.key
+*.zkproof
+
+```
+
+#### `contributing/contribution-template.md`
+
+# Contribution Template
+
+## Type of change
+- [ ] New program
+- [ ] Governance proposal
+- [ ] AI model / agent
+- [ ] Security fix
+- [ ] Documentation
+
+## Summary
+(Explain what this adds/changes and why)
+
+## Privacy & security review
+- [ ] Does this require new ZK circuits?
+- [ ] Does this handle PII?
+- [ ] Has it been tested with mock data?
+
+## Testing checklist
+- [ ] Unit tests pass
+- [ ] Integration tests pass (if applicable)
+- [ ] Eligibility engine simulation
+
+## Sign-off
+I agree to the [Code of Conduct](./code-of-conduct.md) and to license this contribution under AGPL‑3.0.
+
+
+contributing/code-of-conduct.md
+
+Standard Contributor Covenant v2.1 with additional clause: “No surveillance or re‑identification of beneficiaries.”
+
+security/security.md
+
+
+# Security Policy
+
+## Reporting
+Submit via `security@hsn.org` (PGP key in `/security/pgp-key.asc`).  
+Do **not** use GitHub issues.
+
+## Accepted risks
+- Sybil resistance is probabilistic
+- AI decisions are auditable but not infallible
+
+## Disclosure timeline
+- Critical: 72h fix, 7d public
+- Moderate: 14d fix, 30d public
+
+
+.github/workflows/ci.yml
+
+```yaml
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run eligibility engine tests
+        run: make test-eligibility
+      - name: Lint programs
+        run: make lint-programs
+      - name: ZK circuit compilation (stub)
+        run: echo "ZK compile placeholder"
+```
+
+.github/workflows/deploy.yml
+
+```yaml
+name: Deploy
+on:
+  release:
+    types: [published]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to testnet
+        run: make deploy-testnet
+      - name: Governance proposal preparation
+        run: make governance-proposal
+```
+
+.github/app-integration/github-app-placeholder.md
+
+
+# GitHub App Integration Placeholder
+
+When live, the HSN GitHub App will:
+- Auto‑label contributions by program area
+- Run ZK proof verification on PRs that modify eligibility rules
+- Post a comment with “governance gas estimate”
+- Gate merges behind a threshold of reputation from the Value Engine
+
+Installation URL: (to be added)
+Webhook secret: `${{ secrets.HSN_WEBHOOK }}`
+
+
+Index Files (examples)
+
+programs/program-index.md
+
+
+| Program ID | Name | Eligibility (ZK predicate) | Disbursement |
+|------------|------|----------------------------|---------------|
+| P001 | Universal Basic Income | `age >= 18 AND income < M` | Stablecoin monthly |
+| P002 | Youth Mental Health | `age 16-25 AND PHQ9 >= 10` | 8 therapy vouchers |
+| P003 | Emergency Relief | `loss_event == true AND days_since_loss <= 7` | One‑time 500 USDC |
+
+
+governance/governance-index.md
+
+Lists active DAO modules: proposal factory, veto power of Stability Council, quadratic voting parameters.
+
+ai-support-layer/ai-support-layer-index.md
+
+
+- **Triage Agent** – NLP classifier routes to correct program
+- **Eligibility Explainer** – LLM generates human‑readable reasons (post‑ZK proof)
+- **Case Notes Summarizer** – differential privacy layer
+- **Model registry** (Hugging Face + ZK model proofs)
+
+
+value-engine/value-engine-index.md
+
+· Reputation tokens (ERC‑20 / Cosmos Coin) – non‑transferable
+· Contribution scoring (code, casework, governance)
+· Incentive pools: quadratic funding, retroactive public goods
+
+youth-track/youth-track-index.md
+
+· Mentorship matching engine (off‑chain + ZK age range)
+· Skills wallet (verifiable credentials for achievements)
+· Transition fund (escrow unlocks at 25)
+
+trust-fund/trust-fund-index.md
+
+· Capital sources: taxes, donations, yield
+· Escrow contracts (multi‑sig + ZK condition release)
+· Disbursement oracles (Chainlink + HSN‑run nodes)
+
+---
+
+Part 2: Core System Architecture
+
+Mermaid Architecture Diagram
+
+```mermaid
+graph TD
+    User((User)) --> ID[Identity Layer<br/>DID / Verifiable Credentials]
+    ID --> EL[Eligibility Engine<br/>ZK predicate evaluation]
+    EL --> EW[Enrollment Workflows<br/>Program selection + consent]
+    EW --> CMS[Case Management System<br/>Encrypted records + events]
+    CMS --> AI[AI Support Layer<br/>Agents + model registry]
+    CMS --> VE[Value Engine<br/>Reputation + incentives]
+    CMS --> TF[Trust Fund Engine<br/>Escrow + disbursement]
+    VE --> TF
+    EL --> PG[Program Engines<br/>Modular business logic]
+    PG --> TF
+    PG --> VE
+    PG --> CMS
+    User -- API call --> GW[API Gateway<br/>REST/GraphQL + auth]
+    GW --> ID
+    GW --> EL
+    GW --> EW
+    GW --> CMS
+    GW --> VE
+    GW --> TF
+    Gov((Governor)) --> GA[Governance Automation<br/>DAO / voting]
+    GA --> EL
+    GA --> PG
+    GA --> VE
+    GA --> TF
+    ZK((ZK Prover)) -.-> EL
+    ZK -.-> VE
+    ZK -.-> TF
+```
+
+Module Descriptions
+
+Module Responsibility Key Tech
+Identity Layer Issuance of DIDs, storage of encrypted credentials, selective disclosure. did:key, BBS+ signatures, IPFS/Hypercore
+Eligibility Engine Evaluate ZK predicates (age, income, location, health score) without raw data. Circom, ZoKrates, snarkJS
+Enrollment Workflows Multi‑step sign‑up, consent management, program assignment. State machines, XState, session tokens
+Case Management System Encrypted case notes, document store, event sourcing, role‑based access. Lit Protocol, OrbitDB, OPA policies
+AI Support Layer LLM triage, summarisation, anomaly detection; model inference with ZK provenance. Ollama, vLLM, ezkl
+Value Engine Non‑transferable reputation scores, contribution graphs, retroactive funding pools. Ceramic, Compass, Halo2
+Trust Fund Engine Multi‑sig escrow, conditional disbursement (ZK conditions), yield management. Safe, Aztec, Chainlink
+Program Engines Pluggable logic for UBI, mental health, skills training, etc. WASM modules, CosmWasm
+API Gateway Unified entry point, rate limiting, authentication, request routing. Envoy, GraphQL federation
+Governance Automation Proposal submission, quadratic voting, veto logic, on‑chain execution. Aragon OSx, Tally
+
+Data Flow (Simplified)
+
+1. User creates DID → Identity Layer stores encrypted profile.
+2. User requests eligibility → API Gateway → Eligibility Engine.
+   · User generates ZK proof (e.g., age>18 && income<X) locally.
+   · Engine verifies proof → returns eligible: [P001, P003].
+3. User enrolls → Enrollment Workflows → selects program, signs consent.
+4. Case created → Case Management System stores encrypted record.
+5. Ongoing support:
+   · AI Support Layer reads case events (permissions) → suggests actions.
+   · Value Engine updates reputation based on positive outcomes.
+6. Disbursement → Trust Fund Engine checks ZK condition → releases funds.
+7. Governance → Token holders propose new eligibility rule → passes vote → Governance Automation updates Eligibility Engine.
+
+API Surfaces (REST + GraphQL)
+
+Identity Layer
+
+```
+POST   /identity/did              – Create DID
+POST   /identity/credential       – Issue credential
+GET    /identity/credential/:id   – Retrieve encrypted credential
+POST   /identity/prove            – Generate ZK proof from credentials
+```
+
+Eligibility Engine
+
+```
+POST   /eligibility/verify        – Submit ZK proof, get program list
+GET    /eligibility/rules         – List public rule hashes
+```
+
+Enrollment Workflows
+
+```
+POST   /enrollment/begin          – Start enrollment for program X
+PUT    /enrollment/consent        – Sign consent (off‑chain or on‑chain)
+GET    /enrollment/status/:userId – Current enrollment state
+```
+
+Case Management
+
+```
+POST   /cases                     – Create new case
+POST   /cases/:caseId/events      – Append encrypted event
+GET    /cases/:caseId             – Read case (auth + ZK access proof)
+```
+
+Value Engine
+
+```
+GET    /reputation/:userId        – Reputation score (ZK‑proof required)
+POST   /contribution              – Register contribution (code, casework, etc.)
+POST   /incentive/claim           – Claim retroactive reward
+```
+
+Trust Fund Engine
+
+```
+GET    /funds/balance/:programId  – Current escrow balance
+POST   /funds/disburse            – Request disbursement (ZK condition proof)
+GET    /funds/history             – Auditable disbursement log
+```
+
+Governance Automation
+
+```
+POST   /governance/proposal       – Submit new proposal
+GET    /governance/proposals      – List active proposals
+POST   /governance/vote           – Cast vote (quadratic)
+```
+
+Security Model
+
+· Zero‑trust network – all inter‑service calls authenticated with mTLS or JWTs.
+· End‑to‑end encryption for case data (user holds key, service only sees encrypted blobs).
+· Role‑based access (RBAC) with OPA policies:
+  · case_worker → read/write assigned cases, no raw identity.
+  · ai_agent → read anonymised case summaries, no PII.
+  · auditor → read ZK proof transcripts, no plaintext.
+· Key management – HSMs for trust fund signers; user DIDs stored client‑side.
+· Rate limiting & DDoS protection – per‑DID quota, API Gateway circuit breakers.
+· Formal verification for eligibility engine predicates (using Coq or SMT solvers).
+
+ZK‑Proof Integration Points
+
+Integration Point What is proved Without revealing
+Eligibility Age ≥ 18, income ≤ threshold, residency in region Exact age, income, address
+Mental health program PHQ‑9 score ≥ 10 Individual answers, raw score
+Reputation User has contributed ≥ 5 hours last month Which project, exact time
+Trust fund disbursement Condition (enrolled && attended_80%) Attendance list, class details
+Governance vote Voter holds ≥ 100 reputation (non‑transferable) Voter identity (pseudonymous)
+Audit Program X disbursed exactly Y funds to eligible users Recipient identities
+
+ZK circuit libraries:
+
+· circom + snarkjs for eligibility predicates.
+· halo2 for reputation and governance proofs.
+· aztec‑nr for private trust fund conditions.
+
+Proof verification on‑chain (Ethereum/Celestia) for trust fund releases, off‑chain (API gateway) for eligibility and reputation queries.
+
+---
